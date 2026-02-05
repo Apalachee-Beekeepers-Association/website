@@ -2,7 +2,7 @@
 
 backend:
   name: github
-  repo: user/repo
+  repo: Apalachee-Beekeepers-Association/website
   base_url: https://sveltia-cms-auth.violetro.se/
 
 media_folder: /static/media

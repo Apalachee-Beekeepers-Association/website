@@ -9,6 +9,20 @@ media_folder: /static/media
 public_folder: /media
 
 collections:
+  - name: events
+    label: Events
+    folder: /content/events
+    fields:
+      - name: title
+        label: Title
+        widget: string
+      - name: date
+        label: Start
+        widget: datetime
+      - name: end
+        label: End
+        widget: datetime
+        required: false
   - name: posts
     label: Posts
     folder: /content/posts

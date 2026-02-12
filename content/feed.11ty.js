@@ -26,7 +26,7 @@ class FeedTemplate {
         })
 
         // Loop through of each of our events using the collection
-        for (const page of collections.events) {
+        for (const page of collections.events ?? []) {
             // Create a calendar event from each page
             const eventParams = {
                 id: `${calendar.url}/${page.url}`,

@@ -27,7 +27,7 @@ export default async function(eleventyConfig) {
 	});
 
 	// Copy `admin/` to `_site/admin/`
-	eleventyConfig.addPassthroughCopy("admin");
+	eleventyConfig.addPassthroughCopy({ "static" : "/" });
 };
 
 export const config = {

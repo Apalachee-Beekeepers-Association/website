@@ -29,10 +29,10 @@ class FeedTemplate {
         for (const page of collections.events ?? []) {
             // Create a calendar event from each page
             const eventParams = {
-                id: `${calendar.url}/${page.url}`,
+                id: `${calendar.url}${page.url}`,
                 start: page.data.date,
                 summary: page.data.title,
-                description: (await page.template.read()).content
+                description: (await page.template.read()).content,
             };
             if (page.data.end) {
                 eventParams.end = page.data.end;

@@ -1,0 +1,158 @@
+:root {
+    font-size: 16px;
+    font: 1rem "Figtree", sans-serif;
+    --sm: 576px;
+    --md: 768px;
+    --lg: 992px;
+    --xl: 1200px;
+    --xxl: 1400px;
+    --accent-50: #fffcea;
+    --accent-100: #fff7c5;
+    --accent-200: #ffef87;
+    --accent-300: #ffe048;
+    --accent-400: #ffcf1e;
+    --accent-500: #fcae04;
+    --accent-600: #e68800;
+    --accent-700: #b95c04;
+    --accent-800: #96470a;
+    --accent-900: #7b3a0c;
+    --accent-950: #471d01;
+    --foreground: #222;
+    --background: #fefefe;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montagu Slab', serif;
+}
+
+/* visually-hidden and visually-hidden-focusable: from bootstrap */
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+    display: block;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.visually-hidden:not(caption),
+.visually-hidden-focusable:not(:focus):not(:focus-within):not(caption) {
+    position: absolute !important;
+}
+
+.visually-hidden *,
+.visually-hidden-focusable:not(:focus):not(:focus-within) * {
+    overflow: hidden !important;
+}
+
+.skip-link {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    border-radius: 9999px;
+    padding: 0.5rem 1rem;
+    background: white;
+}
+
+body {
+    background: var(--background);
+    color: var(--foreground);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--accent-50);
+    border-bottom: 1px solid var(--accent-200);
+}
+
+.navbar {
+    max-width: var(--xl);
+    padding-inline: 0.5rem;
+    margin-inline: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.navbar--logo {
+    color: var(--accent-600);
+    text-decoration: none;
+    padding: 0.5rem 0.25rem;
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.25em;
+}
+
+.navbar--logo svg {
+    height: 1.5em;
+    width: 1.5em;
+}
+
+.nav {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.nav--item {
+    padding: 0.5rem 0.25rem;
+    font-weight: 450;
+}
+.nav--item a svg {
+    height: 1em;
+    width: 1em;
+}
+.nav--item a {
+    transition: background-color 300ms, color 300ms, border;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0.5rem;
+    text-decoration: none;
+    color: currentColor;
+    border-radius: 0.5rem;
+}
+.nav--item a:hover {
+    background-color: var(--accent-100);
+    color: var(--accent-600);
+
+}
+.nav--item--active a {
+    background-color: var(--accent-600);
+    color: var(--accent-50);
+}
+.nav--item--active a:hover {
+    background-color: var(--accent-500);
+    color: var(--accent-50);
+}
+
+main {
+    flex-grow: 1;
+}
+
+footer {
+    background-color: var(--accent-50);
+    border-top: 1px solid var(--accent-200);
+}
+
+.footer {
+    max-width: var(--xl);
+    padding-inline: 1rem;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 768px) {
+    .footer {
+        grid-template-columns: 1fr 1fr;
+    }
+}

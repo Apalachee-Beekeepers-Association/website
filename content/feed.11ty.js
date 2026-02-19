@@ -1,5 +1,8 @@
 import { ICalCalendar, ICalAlarmType, ICalCalendarMethod } from "ical-generator"
 
+// days * hours * minutes * seconds * milliseconds
+const MILLISECONDS_PER_YEAR = 365 * 24 * 60 * 60 * 1000;
+
 class FeedTemplate {
     // Setup Eleventy data for this template,
     // namely set the name of the file to be generated
@@ -27,6 +30,10 @@ class FeedTemplate {
 
         // Loop through of each of our events using the collection
         for (const page of collections.events ?? []) {
+            // Skip any events over 1 year old
+            if (new Date(page.data.date) < new Date(Date.now() - MILLISECONDS_PER_YEAR)) {
+                continue;
+            }
             // Create a calendar event from each page
             const eventParams = {
                 id: `${calendar.url}${page.url}`,

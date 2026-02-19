@@ -28,10 +28,28 @@ collections:
       - name: date
         label: Start
         widget: datetime
+        format: "YYYY-MM-DDTHH:mm:ss.SSSZ"
       - name: end
         label: End
         widget: datetime
+        format: "YYYY-MM-DDTHH:mm:ss.SSSZ"
         required: false
+      - name: location
+        label: Location
+        widget: object
+        required: false
+        default:
+          address: |-
+            615 Paul Russell Rd
+            Tallahassee, FL 32301
+          geojson: '{"type":"Point","coordinates":[-84.269533,30.4048004]}'
+        fields:
+          - name: address
+            label: Address
+            widget: text
+          - name: geojson
+            label: Map Pin
+            widget: map
       - name: attachments
         label: Attachments
         multiple: true

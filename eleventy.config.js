@@ -3,6 +3,9 @@ import eleventyFontAwesomePlugin from "@11ty/font-awesome";
 import eleventyAutoCacheBuster  from "eleventy-auto-cache-buster";
 import CleanCSS from "clean-css";
 
+// See https://moment.github.io/luxon/#/zones?id=specifying-a-zone
+const TIME_ZONE = "America/New_York";
+
 export default async function (eleventyConfig) {
 	// hierarchical navigation plugin
 	eleventyConfig.addPlugin(eleventyNavigationPlugin);
@@ -24,6 +27,20 @@ export default async function (eleventyConfig) {
 				return new CleanCSS({}).minify(content).styles;
 			}
 		]
+	});
+
+	// Dates should render as EST by default
+	eleventyConfig.addDateParsing(function(dateValue) {
+		let localDate;
+		if(dateValue instanceof Date) { // and YAML
+			localDate = DateTime.fromJSDate(dateValue, { zone: "utc" }).setZone(TIME_ZONE, { keepLocalTime: true });
+		} else if(typeof dateValue === "string") {
+			localDate = DateTime.fromISO(dateValue, { zone: TIME_ZONE });
+		}
+		if (localDate?.isValid === false) {
+			throw new Error(`Invalid \`date\` value (${dateValue}) is invalid for ${this.page.inputPath}: ${localDate.invalidReason}`);
+		}
+		return localDate;
 	});
 
 	// Bundle <script> content and adds a {% js %} paired shortcode

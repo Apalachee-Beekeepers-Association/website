@@ -78,7 +78,8 @@ eleventyNavigation:
   }
   .hero--foreground-image {
     grid-area: image;
-    aspect-ratio: 1;
+    width: 100%;
+    height: auto;
   }
   .hero--title {
     grid-area: title;
@@ -149,13 +150,21 @@ eleventyNavigation:
 <div class="hexes hero--wrapper">
   <div class="container--md">
     <div class="hero--intro">
-      <img class="hero--intro-bee" src="/bee.svg" alt="" />
+      <picture>
+        <img src="/bee.svg" alt="" class="hero--intro-bee" />
+      </picture>
       What's the buzz?
-      <img class="hero--intro-bee" src="/bee.svg" alt="" />
+      <picture>
+        <img src="/bee.svg" alt="" class="hero--intro-bee" />
+      </picture>
     </div>
     <div class="hero">
-      <img class="hero--background-image" src="/hero-bg.jpg" alt="" />
-      <img class="hero--foreground-image" src="/logo.png" alt="" />
+      <picture>
+        <img src="/media/hero-bg.jpg" alt="" class="hero--background-image" />
+      </picture>
+      <picture>
+        <img src="/logo.png" alt="" class="hero--foreground-image" />
+      </picture>
       <div class="hero--title">Intro to Beekeeping Short Course</div>
       <div class="hero--content">
         <p>

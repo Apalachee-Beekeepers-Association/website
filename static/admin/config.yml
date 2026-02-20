@@ -5,7 +5,7 @@ backend:
   repo: Apalachee-Beekeepers-Association/website
   base_url: https://sveltia-cms-auth.violetro.se/
 
-media_folder: /static/media
+media_folder: /content/media
 public_folder: /media
 media_libraries:
   stock_assets:
@@ -16,8 +16,8 @@ collections:
     icon: calendar_month
     label: Events
     folder: /content/events
-    media_folder: /static/media/events
-    public_folder: /media/events
+    media_folder: '{{media_folder}}/events'
+    public_folder: '{{public_folder}}/events'
     fields:
       - name: title
         label: Title

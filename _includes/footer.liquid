@@ -18,6 +18,10 @@
         align-items: center;
         gap: 1rem
     }
+    .footer--address--logo {
+        width: 100%;
+        height: auto;
+    }
 
     .footer--copyright {
         text-align: center;
@@ -32,7 +36,9 @@
 <footer>
     <div class="footer">
         <div class="footer--address">
-            <img class="footer--address--logo" src="/logo.png" alt="{{ metadata.title }} Logo" />
+            <picture>
+                <img class="footer--address--logo" src="/logo.png" alt="{{ metadata.title }} Logo" />
+            </picture>
             <div class="footer--address--text">
                 <p>
                 Apalachee Beekeepers Association

@@ -28,6 +28,7 @@
     "leaflet": "^1.9.4"
   },
   "devDependencies": {
+    "@11ty/eleventy-img": "^6.0.4",
     "eleventy-auto-cache-buster": "^0.8.3"
   }
 }

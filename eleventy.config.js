@@ -1,5 +1,6 @@
 import eleventyNavigationPlugin from "@11ty/eleventy-navigation";
 import eleventyFontAwesomePlugin from "@11ty/font-awesome";
+import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import eleventyAutoCacheBuster  from "eleventy-auto-cache-buster";
 import CleanCSS from "clean-css";
 
@@ -8,6 +9,11 @@ export default async function (eleventyConfig) {
 	eleventyConfig.addPlugin(eleventyNavigationPlugin);
 	// fontawesome icons plugin
 	eleventyConfig.addPlugin(eleventyFontAwesomePlugin);
+	// image optimization
+	eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+		formats: ['svg', 'webp'],
+		svgShortCircuit: true
+	});
 	// cache bust assets based on hash
 	eleventyConfig.addPlugin(eleventyAutoCacheBuster);
 

@@ -1,0 +1,55 @@
+<style>
+    footer {
+        background-color: var(--accent-50);
+        border-top: 1px solid var(--accent-200);
+    }
+
+    .footer {
+        max-width: var(--xl);
+        padding-inline: 1rem;
+        margin-inline: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .footer--address {
+        display: grid;
+        grid-template-columns: 5rem 1fr;
+        align-items: center;
+        gap: 1rem
+    }
+
+    .footer--copyright {
+        text-align: center;
+    }
+
+    @media screen and (min-width: 768px) {
+        .footer {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+</style>
+<footer>
+    <div class="footer">
+        <div class="footer--address">
+            <img class="footer--address--logo" src="/logo.png" alt="{{ metadata.title }} Logo" />
+            <div class="footer--address--text">
+                <p>
+                Apalachee Beekeepers Association
+                <br>
+                P.O. Box 15422
+                <br>
+                Tallahassee, FL 32317
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="footer--copyright">
+        <p>
+            &copy; Copyright {{  "now" | date: '%Y' }} Apalachee Beekeepers Association
+        </p>
+        <p>
+            <em>Built with <a href="https://www.11ty.dev/">{{ eleventy.generator }}</a></em>
+        </p>
+    </div>
+</footer>

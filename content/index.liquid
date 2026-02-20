@@ -3,9 +3,176 @@ eleventyNavigation:
   key: Home
   order: 1
 ---
-<h1>Home</h1>
-<ul>
-{%- for event in collections.events -%}
-  <li><a href="{{event.url}}">{{ event.data.title }}</a></li>
-{%- endfor -%}
-</ul>
+<style>
+  .hero--wrapper {
+    position: relative;
+  }
+  @keyframes wiggle-cw {
+    0% { rotate: 0deg; }
+    10% { rotate: 5deg; }
+    20% { rotate: -5deg; }
+    30% { rotate: 0deg; }
+    100% { rotate: 0deg; }
+  }
+  @keyframes wiggle-ccw {
+    0% { rotate: 0deg; }
+    10% { rotate: -5deg; }
+    20% { rotate: 5deg; }
+    30% { rotate: 0deg; }
+    100% { rotate: 0deg; }
+  }
+  .hero--intro {
+    text-align: center;
+    color: white;
+    background-color: #0008;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-family: 'Montagu Slab', serif;
+    font-size: 1.5em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .hero--intro-bee {
+    width: 2em;
+    height: 2em;
+  }
+  .hero--intro-bee:first-child {
+    transform: scaleX(-1);
+  }
+  .hero--intro:hover .hero--intro-bee {
+    animation: wiggle-cw 1s infinite;
+  }
+  .hero--intro:hover .hero--intro-bee:first-child {
+    animation: wiggle-ccw 1s infinite;
+  }
+  .hero {
+    transition: scale 300ms, filter 300ms;
+    overflow: clip;
+    border-radius: 0.5rem;
+    color: white;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+      "image title"
+      "content content";
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    filter: drop-shadow(0 0.5rem 0.5rem #000b);
+  }
+  .hero--background-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  .hero--foreground-image {
+    padding-inline-start: 1rem;
+    grid-area: image;
+    aspect-ratio: 1;
+  }
+  .hero--title {
+    padding-inline-end: 1rem;
+    grid-area: title;
+    font-family: 'Montagu Slab', serif;
+    font-size: 1.5em;
+    font-weight: 600;
+    text-shadow: 2px 0 black, -2px 0 black, 0 2px black, 0 -2px black, 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;
+    text-wrap: balance;
+  }
+  .hero--content {
+    grid-area: content;
+    border-radius: 0.5rem;
+    background-color: #000a;
+    align-self: stretch;
+    padding-inline: 1rem;
+  }
+  .hero--call-to-action {
+    transition: background-color 300ms;
+    display: block;
+    width: fit-content;
+    float: inline-end;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 0.5rem;
+    background-color: var(--accent-600);
+    color: var(--accent-50);
+    border-radius: 0.5rem;
+    margin-block: 1rem;
+  }
+  .hero--call-to-action::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .hero--call-to-action:hover {
+    background-color: var(--accent-500);
+  }
+  .hero:has(.hero--call-to-action:hover) {
+    scale: 1.025;
+    filter: drop-shadow(0 0.5rem 1rem #000b);
+  }
+  @media screen and (min-width: 576px) {
+    .hero {
+      grid-template-columns: 1fr 3fr;
+    }
+    .hero--title {
+      font-size: 2rem;
+    }
+    .hero--content {
+      font-size: 1.25rem;
+    }
+    .hero--call-to-action {
+      font-size: 1.5rem;
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .hero--title {
+      font-size: 2.75rem;
+    }
+  }
+  @media screen and (min-width: 1400px) {
+    .hero--bee {
+      display: unset;
+    }
+  }
+</style>
+<div class="hexes hero--wrapper">
+  <div class="container--md">
+    <div class="hero--intro">
+      <img class="hero--intro-bee" src="/bee.svg" alt="" />
+      What's the buzz?
+      <img class="hero--intro-bee" src="/bee.svg" alt="" />
+    </div>
+    <div class="hero">
+      <img class="hero--background-image" src="/hero-bg.jpg" alt="" />
+      <img class="hero--foreground-image" src="/logo.png" alt="" />
+      <div class="hero--title">Intro to Beekeeping Short Course</div>
+      <div class="hero--content">
+        <p>
+          Come learn the basics of beekeeping in our fun and interactive one day course - perfect for beginners!
+          <a class="hero--call-to-action" href="https://www.eventbrite.com/e/2026-intro-to-beekeeping-short-course-tickets-1977574800463">Register Now!</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container--xl">
+  <h1>Home</h1>
+  <ul>
+  {%- for event in collections.events -%}
+    <li><a href="{{event.url}}">{{ event.data.title }}</a></li>
+  {%- endfor -%}
+  </ul>
+</div>

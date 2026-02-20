@@ -12,62 +12,34 @@
     </title>
     <meta name="description" content="{{ description or metadata.description }}">
     <meta name="generator" content="{{ eleventy.generator }}">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montagu+Slab:opsz,wght@16..144,100..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montagu+Slab:opsz,wght@16..144,100..700&display=swap" rel="stylesheet">
     <style>{% getBundle "css" %}</style>
-	<style>{% include 'reset.css' %}</style>
-	<style>{% include 'global.css' %}</style>
+    <script type="module" src="{% getBundleFileUrl "js" %}"></script>
+    <style>{% include 'reset.css' %}</style>
+    <style>{% include 'global.css' %}</style>
+    <style>
+      body {
+          background: var(--background);
+          color: var(--foreground);
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+      }
+      main {
+          flex-grow: 1;
+      }
+    </style>
   </head>
-
   <body>
     {% getBundle "fontawesome" %}
-    <a
-      href="#main"
-      id="skip-link"
-      class="visually-hidden-focusable skip-link">Skip to main content</a>
-
-    <header>
-      <nav class="navbar">
-        <a href="/" class="navbar--logo"><i class="fa-solid fa-hexagon"></i>{{ metadata.title }}</a>
-        {% assign navPages = collections.all | eleventyNavigation %}
-        <ul class="nav">
-          {%- for entry in navPages %}
-            <li class="nav--item{% if entry.url == page.url %} nav--item--active{% endif %}">
-              <a href="{{ entry.url }}">{{ entry.title }}
-				{% comment %} {% if entry.url == page.url %}<i class="fa-solid fa-hexagon"></i>{% endif %} {% endcomment %}
-			  </a>
-            </li>
-          {%- endfor %}
-        </ul>
-      </nav>
-    </header>
-
+    {% include 'header' %}
     <main id="main">
       {{ content }}
     </main>
-
-    <footer>
-		<div class="footer">
-			<div class="footer--address">
-				<p>
-				Apalachee Beekeepers Association
-		  		<br>
-				P.O. Box  15422
-				<br>
-				Tallahassee, FL 32317
-				</p>
-			</div>
-			<p>
-				<em>Built with
-					<a href="https://www.11ty.dev/">{{ eleventy.generator }}</a>
-				</em>
-			</p>
-		</div>
-    </footer>
-
-    <!-- This page `{{ page.url }}` was built on {% currentBuildDate %} -->
-    <script type="module" src="{% getBundleFileUrl "js" %}"></script>
+    {% include 'footer' %}
+    <!-- This page `{{ page.url }}` was built on {{ "now" | date: '%Y-%m-%dT%H:%M:%S.%L%z' }} -->
   </body>
 
 </html>

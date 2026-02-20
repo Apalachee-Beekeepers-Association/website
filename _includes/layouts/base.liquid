@@ -16,9 +16,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montagu+Slab:opsz,wght@16..144,100..700&display=swap" rel="stylesheet">
     <style>{% getBundle "css" %}</style>
-    <script type="module" src="{% getBundleFileUrl "js" %}"></script>
     <style>{% include 'reset.css' %}</style>
     <style>{% include 'global.css' %}</style>
+    <script type="module" src="{% getBundleFileUrl "js" %}"></script>
+    <script type="module">{% include 'node_modules/invokers-polyfill/invoker.min.js' %}</script>
     <style>
       body {
           background: var(--background);
@@ -31,6 +32,20 @@
           flex-grow: 1;
       }
     </style>
+    <script>
+        // see https://gomakethings.com/revisiting-how-to-dismiss-native-html-dialog-elements-when-the-backdrop-is-clicked/
+        document.addEventListener('click', (event) => {
+            // Ignore clicks inside the <dialog>
+            if (event.target.closest('dialog')) return;
+
+            // Otherwise, close the open <dialog>
+            const dialog = document.querySelector('dialog[open]');
+            console.log(dialog?.dataset)
+            if (dialog?.dataset?.backdropDismisses !== undefined) {
+                dialog.close();
+            }
+        });
+    </script>
   </head>
   <body>
     {% getBundle "fontawesome" %}

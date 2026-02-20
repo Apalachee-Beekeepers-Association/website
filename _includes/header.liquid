@@ -33,6 +33,7 @@
         display: flex;
         align-items: center;
         font-size: 1.25em;
+        line-height: 1;
     }
 
     .navbar--logo img,
@@ -40,21 +41,33 @@
         height: 2em;
         width: 2em;
     }
+    
+    .nav-open,
+    .nav-close {
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        padding: 0.5rem 0.25rem;
+    }
+    .nav-open {
+        margin: 0.5rem 0.25rem;
+    }
+
+    .nav-open svg,
+    .nav-close svg {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
 
     .nav {
+        display: none;
         list-style: none;
-        display: flex;
         padding: 0;
         margin: 0;
     }
-
     .nav--item {
         padding: 0.5rem 0.25rem;
         font-weight: 450;
-    }
-    .nav--item a svg {
-        height: 1em;
-        width: 1em;
     }
     .nav--item a {
         transition: background-color 300ms, color 300ms;
@@ -66,7 +79,7 @@
         color: currentColor;
         border-radius: 0.5rem;
     }
-    .nav--item a:hover {
+    .nav--item a:hover{
         background-color: var(--accent-100);
         color: var(--accent-600);
     }
@@ -78,19 +91,63 @@
         background-color: var(--accent-500);
         color: var(--accent-50);
     }
+
+    #dialog-menu:open {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        max-width: 75%;
+        width: 16rem;
+        max-height: none;
+        height: 100%;
+        margin-inline-start: auto;
+        border: none;
+        border-inline-start: 1px solid var(--accent-200);
+        background-color: var(--accent-50);
+        gap: 0.5rem;
+    }
+    #dialog-menu::backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+    }
+    #dialog-menu .nav {
+        display: grid;
+        gap: 0.5rem;
+    }
+    #dialog-menu .nav .nav--item{
+        padding: 0;
+    }
+
+    .dialog-menu--header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .dialog-menu--header h2 {
+        margin: 0;
+    }
+
+    @media screen and (min-width: 576px) {
+        .nav {
+            display: flex;
+        }
+        .nav-open {
+            display: none;
+        }
+    }
 </style>
 <a href="#main" class="visually-hidden-focusable skip-link">Skip to main content</a>
 <header>
     <nav class="navbar">
-    <a href="/" class="navbar--logo"><img src="/logo.png" alt="" />{{ metadata.title }}</a>
-    {% assign navPages = collections.all | eleventyNavigation %}
-    <ul class="nav">
-        {%- for entry in navPages %}
-        <li class="nav--item{% if entry.url == page.url or entry.url != '/' and page.url contains entry.url %} nav--item--active{% endif %}">
-            <a href="{{ entry.url }}">{{ entry.title }}
-            </a>
-        </li>
-        {%- endfor %}
-    </ul>
+        <a href="/" class="navbar--logo"><img src="/logo.png" alt="" />{{ metadata.title }}</a>
+        {% include 'nav' %}
+        <button command="show-modal" commandfor="dialog-menu" class="nav-open" type="button" aria-label="Open Menu"><i class="fa-solid fa-bars"></i></button>
+        <dialog aria-labelledby="dialog-menu--title" id="dialog-menu" data-backdrop-dismisses>
+            <div class="dialog-menu--header">
+                <h2 id="dialog-menu--title">Menu</h2>
+                <button class="nav-close" command="close" commandfor="dialog-menu" aria-label="Close Menu"><i class="fa-solid fa-close"></i></button>
+            </div>
+            {% include 'nav' %}
+        </dialog>
     </nav>
 </header>

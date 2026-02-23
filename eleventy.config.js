@@ -1,10 +1,14 @@
 import eleventyNavigationPlugin from "@11ty/eleventy-navigation";
 import eleventyFontAwesomePlugin from "@11ty/font-awesome";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
-import eleventyAutoCacheBuster  from "eleventy-auto-cache-buster";
+import eleventyAutoCacheBuster from "eleventy-auto-cache-buster";
+import memoize from "memoize";
 import CleanCSS from "clean-css";
+import markdownIt from "markdown-it";
 
 export default async function (eleventyConfig) {
+	const now = new Date();
+
 	// hierarchical navigation plugin
 	eleventyConfig.addPlugin(eleventyNavigationPlugin);
 	// fontawesome icons plugin
@@ -40,9 +44,23 @@ export default async function (eleventyConfig) {
 		bundleHtmlContentFromSelector: "script",
 	});
 
+	// add a filter to render as markdown
+	const md = new markdownIt({
+		html: true,
+	});
+
+	eleventyConfig.addFilter("markdown", memoize((content) => {
+		return md.render(content);
+	}));
+
+	// add a fiter for future items only
+	eleventyConfig.addFilter("futureOnly", memoize((data, field = 'date') => {
+		return data.filter(({ [field]: date }) => date >= now);
+	}));
+
 	// expose the build date
 	eleventyConfig.addShortcode("currentBuildDate", () => {
-		return (new Date()).toISOString();
+		return now.toISOString();
 	});
 
 	// Copy `admin/` to `_site/admin/`

@@ -1,30 +1,26 @@
 ---
+hero:
+  title: Intro to Beekeeping Short Course
+  body: Come learn the basics of beekeeping in our funand interactive one day course - **perfect for beginners!**
+  cta: Register Now!
+  link: https://www.eventbrite.com/e/2026-intro-to-beekeeping-short-course-tickets-1977574800463
+  logo: /media/homepage/logo.png
+  background: /media/homepage/hero-bg.jpg
 eleventyNavigation:
-  key: Home
   order: 1
+  key: Home
 ---
+
 <style>
   .hero--wrapper {
     position: relative;
   }
-  @keyframes wiggle-cw {
-    0% { rotate: 0deg; }
-    10% { rotate: 5deg; }
-    20% { rotate: -5deg; }
-    30% { rotate: 0deg; }
-    100% { rotate: 0deg; }
-  }
-  @keyframes wiggle-ccw {
-    0% { rotate: 0deg; }
-    10% { rotate: -5deg; }
-    20% { rotate: 5deg; }
-    30% { rotate: 0deg; }
-    100% { rotate: 0deg; }
-  }
   .hero--intro {
     text-align: center;
-    color: white;
-    background-color: #0008;
+    /* color: var(--foreground);
+    background-color: #0008; */
+    color: var(--accent-600);
+    background-color: var(--accent-50);
     border-radius: 0.5rem;
     padding: 0.5rem;
     font-family: 'Montagu Slab', serif;
@@ -52,8 +48,9 @@ eleventyNavigation:
   .hero {
     transition: scale 300ms, filter 300ms;
     overflow: clip;
+    position: relative;
     border-radius: 0.5rem;
-    color: white;
+    color: var(--background);
     max-width: 100%;
     aspect-ratio: 16 / 9;
     margin-inline: auto;
@@ -66,7 +63,11 @@ eleventyNavigation:
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    filter: drop-shadow(0 0.5rem 0.5rem #000b);
+    /* filter: drop-shadow(0 0.5rem 0.5rem #000b); */
+    border: 1px solid var(--foreground);
+  }
+  .hero>* {
+    z-index: 1;
   }
   .hero--background-image {
     position: absolute;
@@ -74,7 +75,7 @@ eleventyNavigation:
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -1;
+    z-index: 0;
   }
   .hero--foreground-image {
     grid-area: image;
@@ -86,7 +87,7 @@ eleventyNavigation:
     font-family: 'Montagu Slab', serif;
     font-size: 1.5em;
     font-weight: 600;
-    text-shadow: 2px 0 black, -2px 0 black, 0 2px black, 0 -2px black, 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;
+    text-shadow: 2px 0 var(--foreground), -2px 0 var(--foreground), 0 2px var(--foreground), 0 -2px var(--foreground), 1px 1px var(--foreground), -1px -1px var(--foreground), 1px -1px var(--foreground), -1px 1px var(--foreground);
     text-wrap: balance;
   }
   .hero--content {
@@ -122,7 +123,7 @@ eleventyNavigation:
     scale: 1.025;
     filter: drop-shadow(0 0.5rem 1rem #000b);
   }
-  @media screen and (min-width: 576px) {
+  @media (min-width: 576px) {
     .hero {
       grid-template-columns: 1fr 3fr;
     }
@@ -136,14 +137,9 @@ eleventyNavigation:
       font-size: 1.5rem;
     }
   }
-  @media screen and (min-width: 768px) {
+  @media (min-width: 768px) {
     .hero--title {
       font-size: 2.75rem;
-    }
-  }
-  @media screen and (min-width: 1400px) {
-    .hero--bee {
-      display: unset;
     }
   }
 </style>
@@ -160,26 +156,26 @@ eleventyNavigation:
     </div>
     <div class="hero">
       <picture>
-        <img src="/media/hero-bg.jpg" alt="" class="hero--background-image" />
+        <img src="{{ hero.background }}" alt="" class="hero--background-image" />
       </picture>
       <picture>
         <img src="/logo.png" alt="" class="hero--foreground-image" />
       </picture>
-      <div class="hero--title">Intro to Beekeeping Short Course</div>
+      <div class="hero--title">{{ hero.title }}</div>
       <div class="hero--content">
-        <p>
-          Come learn the basics of beekeeping in our fun and interactive one day course - perfect for beginners!
-          <a class="hero--call-to-action" href="https://www.eventbrite.com/e/2026-intro-to-beekeeping-short-course-tickets-1977574800463">Register Now!</a>
+          {{ hero.body | markdown }}
+          <a class="hero--call-to-action" href="{{ hero.link }}">{{ hero.cta }}</a>
         </p>
       </div>
     </div>
   </div>
 </div>
 <div class="container--xl">
-  <h1>Home</h1>
-  <ul>
-  {%- for event in collections.events -%}
-    <li><a href="{{event.url}}">{{ event.data.title }}</a></li>
-  {%- endfor -%}
-  </ul>
+  <h1>Apalachee Beekeepers Association Welcomes You!</h1>
+  <p>Serving the Beekeeping Community in Northern Florida & Southern Georgia</p>
+  {%- assign eventlist = collections.events | futureOnly -%}
+  {% if eventlist.length != 0 %}
+  <h2>Upcoming Events</h2>
+  {% include 'eventlist' %}
+  {% endif %}
 </div>

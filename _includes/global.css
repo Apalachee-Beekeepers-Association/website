@@ -1,3 +1,19 @@
+
+@keyframes wiggle-cw {
+    0% { rotate: 0deg; }
+    10% { rotate: 5deg; }
+    20% { rotate: -5deg; }
+    30% { rotate: 0deg; }
+    100% { rotate: 0deg; }
+}
+@keyframes wiggle-ccw {
+    0% { rotate: 0deg; }
+    10% { rotate: -5deg; }
+    20% { rotate: 5deg; }
+    30% { rotate: 0deg; }
+    100% { rotate: 0deg; }
+}
+
 :root {
     font-size: 16px;
     font: 1rem "Figtree", sans-serif;

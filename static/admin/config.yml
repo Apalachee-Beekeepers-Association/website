@@ -4,59 +4,8 @@ backend:
   name: github
   repo: Apalachee-Beekeepers-Association/website
   base_url: https://sveltia-cms-auth.violetro.se/
-
 media_folder: /content/media
 public_folder: /media
 media_libraries:
   stock_assets:
     providers: []
-      
-collections:
-  - name: events
-    icon: calendar_month
-    label: Events
-    folder: /content/events
-    media_folder: '{{media_folder}}/events'
-    public_folder: '{{public_folder}}/events'
-    fields:
-      - name: title
-        label: Title
-        widget: string
-      - name: body
-        label: Description
-        widget: richtext
-      - name: date
-        label: Start
-        widget: datetime
-        format: "YYYY-MM-DDTHH:mm:ss.SSSZ"
-      - name: end
-        label: End
-        widget: datetime
-        format: "YYYY-MM-DDTHH:mm:ss.SSSZ"
-        required: false
-      - name: location
-        label: Location
-        widget: object
-        required: false
-        default:
-          address: |-
-            615 Paul Russell Rd
-            Tallahassee, FL 32301
-          geojson: '{"type":"Point","coordinates":[-84.269533,30.4048004]}'
-        fields:
-          - name: address
-            label: Address
-            widget: text
-          - name: geojson
-            label: Map Pin
-            widget: map
-      - name: attachments
-        label: Attachments
-        multiple: true
-        widget: file
-  - name: posts
-    label: Posts
-    folder: /content/posts
-    fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Body, name: body, widget: markdown }

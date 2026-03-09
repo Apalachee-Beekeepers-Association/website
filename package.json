@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@11ty/eleventy-img": "^6.0.4",
-    "eleventy-auto-cache-buster": "^0.8.3",
+    "eleventy-auto-cache-buster": "^0.9.0",
     "memoize": "^10.2.0"
   }
 }

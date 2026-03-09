@@ -19,7 +19,9 @@ export default async function (eleventyConfig) {
 		svgShortCircuit: true
 	});
 	// cache bust assets based on hash
-	eleventyConfig.addPlugin(eleventyAutoCacheBuster);
+	eleventyConfig.addPlugin(eleventyAutoCacheBuster, {
+		extensions: ["css", "js", "webp", "png", "jpg", "jpeg", "svg", "ico"]
+	});
 
 	// Per-page bundles, see https://github.com/11ty/eleventy-plugin-bundle
 	// Bundle <style> content and adds a {% css %} paired shortcode

@@ -1,0 +1,36 @@
+---
+layout: layouts/base.liquid
+navOptions:
+  includeSelf: true
+  allowMissing: true
+---
+<style>
+  .breadcrumbs {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 0.25em;
+    font-size: smaller;
+  }
+  .breadcrumb:not(:last-child)::after {
+    content: '>' / '';
+  }
+</style>
+<div class="container--md">
+  {% assign navPages = collections.all | eleventyNavigationBreadcrumb: eleventyNavigation.key, navOptions %}
+  {% if navPages.length > 0 %}
+    <ul class="breadcrumbs">
+      {%- for entry in navPages %}
+        <li class="breadcrumb">
+          {% if entry.url and entry.url != page.url %}
+            <a href="{{entry.url}}">{{ entry.title }}</a>
+          {% else %}
+            {{ entry.title }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <h1>{{ title }}</h1>
+  {{ content }}
+</div>

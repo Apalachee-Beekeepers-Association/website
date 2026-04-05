@@ -1,0 +1,25 @@
+---
+title: Resources
+layout: layouts/default
+eleventyNavigation:
+  order: 3
+  key: Resources
+  parent: Home
+pagination:
+  data: collections.resources
+  size: 25
+---
+<ul>
+  {%- for resource in pagination.items %}
+    <li>
+      <a href="{{resource.url}}">{{ resource.data.title }}</a>
+    </li>
+  {% endfor -%}
+</ul>
+<a href="{{pagination.href.first}}">First</a>
+<a href="{{pagination.href.previous}}">Previous</a>
+{%- for href in pagination.hrefs %}
+  <a href="{{href}}">{{ forloop.index }}</a>
+{% endfor -%}
+<a href="{{pagination.href.next}}">Next</a>
+<a href="{{pagination.href.last}}">Last</a>

@@ -1,37 +1,67 @@
 ---
-layout: layouts/base.liquid
+layout: layouts/default.liquid
 ---
 <style>
-    #event-map {
-        aspect-ratio: 16 / 9;
-    }
+  #event-cover {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+  }
+  #event-map {
+    aspect-ratio: 16 / 9;
+  }
 </style>
-<div class="container--md">
-    <h1>{{title}}</h1>
-    <p>
-        <strong>When</strong> - 
-        {% assign startDate = date | date: "%A, %B %e, %Y", "America/New_York" %}
-        {% assign startTime = date | date: "%l:%M %P", "America/New_York" %}
-        {% if end == '' %}
-        <time datetime="{{ date | date: "%Y-%m-%dT%H:%M:%S.%L%z" }}">{{ startDate }} at {{ startTime }}</time>
-        {% else %}
-        {% assign endDate = end | date: "%A, %B %e, %Y", "America/New_York" %}
-        {% assign endTime = end | date: "%l:%M %P", "America/New_York" %}
-        <time datetime="{{ date | date: "%Y-%m-%dT%H:%M:%S.%L%z" }}">{{ startDate }} {% if startDate != endDate %}{{ endDate }} at {% else %} from {% endif %} {{startTime}} </time> to <time datetime="{{ end | date: "%Y-%m-%dT%H:%M:%S.%L%z" }}">{% if startDate != endDate %}{{endDate}} at {% endif %}{{endTime}}</time>
-        {% endif %}
-    {% if location and location.address %}
-        <br>
-        <strong>Where</strong> - {{location.address | replace: "\n", ", "}}
-    {% endif %}
-    </p>
-    {{ content }}
-    {% if location and location.geojson %}
-    <h2>Location</h2>
-    {{ location.address | replace: "\n", "<br>" }}
-    <div id="event-map"></div>
-    <style>{% include 'node_modules/leaflet/dist/leaflet.css' %}</style>
-    <script type="module">{% include 'node_modules/leaflet/dist/leaflet.js' %}</script>
-    <script>
+<p>
+  <strong>When</strong>
+  -
+  {% assign startDate = date | date: "%A, %B %e, %Y", "America/New_York" %}
+  {% assign startTime = date | date: "%l:%M %P", "America/New_York" %}
+  {% if end == '' %}
+    <time datetime="{{ date | date: "%Y-%m-%dT%H:%M:%S.%L%z" }}">{{ startDate }} at {{ startTime }}</time>
+  {% else %}
+    {% assign endDate = end | date: "%A, %B %e, %Y", "America/New_York" %}
+    {% assign endTime = end | date: "%l:%M %P", "America/New_York" %}
+    <time datetime="{{ date | date: "%Y-%m-%dT%H:%M:%S.%L%z" }}">{{ startDate }}
+      {% if startDate != endDate %}
+        {{ endDate }} at
+      {% else %}
+        from
+      {% endif %}
+      {{ startTime }}
+    </time>
+    to
+    <time datetime="{{ end | date: "%Y-%m-%dT%H:%M:%S.%L%z" }}">
+      {% if startDate != endDate %}
+        {{ endDate }} at
+      {% endif %}
+      {{ endTime }}</time>
+  {% endif %}
+  {% if location and location.address %}
+    <br>
+    <strong>Where</strong>
+    - {{ location.address | replace: "\n", ", " }}
+  {% endif %}
+</p>
+{% if cover %}
+  <p>
+    <img
+      id="event-cover"
+      src="{{ cover }}"
+      alt="" />
+  </p>
+{% endif %}
+{{ content }}
+{% if location and location.geojson %}
+  <h2>Location</h2>
+  {{ location.address | replace: "\n", "<br>" }}
+  <div id="event-map"></div>
+  <style>{% include 'node_modules/leaflet/dist/leaflet.css' %}
+  </style>
+  <script type="module">
+      {% include 'node_modules/leaflet/dist/leaflet.js' %}
+  </script>
+  <script>
         (() => {
             L.Icon.Default.imagePath = "/";
             const geojson = JSON.parse({{ location.geojson | json }});
@@ -46,6 +76,5 @@ layout: layouts/base.liquid
             }).addTo(map);
             L.marker(coordinates).addTo(map).bindPopup(`<p>${address.replaceAll("\n", "<br>")}</p><p><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address.replaceAll("\n", ","))}">Open in Google Maps</a></p>`);
         })();
-    </script>
-    {% endif %}
-</div>
+  </script>
+{% endif %}

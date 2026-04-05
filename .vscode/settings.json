@@ -1,5 +1,9 @@
 {
     "yaml.schemas": {
         "https://www.schemastore.org/netlify.json": "file:///c%3A/Users/Violet/Code/website/static/admin/config.yml"
+    },
+    "[liquid]": {
+        "editor.defaultFormatter": "sissel.shopify-liquid",
+        "editor.formatOnSave": true
     }
 }

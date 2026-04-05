@@ -1,12 +1,10 @@
 export default {
-	layout: 'layouts/event.liquid',
-	tags: [
-		"events"
-	],
+  layout: "layouts/default.liquid",
+  tags: ["resources"],
   eleventyComputed: {
     eleventyNavigation: (data) => {
       return {
-        parent: "Events",
+        parent: "Resources",
         key: data.title,
       };
     },
